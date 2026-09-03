@@ -268,6 +268,28 @@ pub enum MicrosandboxError {
     #[error("sandbox fs error: {0}")]
     SandboxFsOps(String),
 
+    /// A TCP connection initiated from inside the guest could not be established.
+    #[error("guest TCP connect to {host}:{port} failed: {reason}")]
+    GuestTcpConnect {
+        /// Destination host as seen by the guest.
+        host: String,
+        /// Destination port as seen by the guest.
+        port: u16,
+        /// Sanitized failure returned by the guest agent.
+        reason: String,
+    },
+
+    /// A TCP connection initiated from inside the guest did not complete in time.
+    #[error("guest TCP connect to {host}:{port} timed out after {timeout:?}")]
+    GuestTcpConnectTimeout {
+        /// Destination host as seen by the guest.
+        host: String,
+        /// Destination port as seen by the guest.
+        port: u16,
+        /// Configured connection timeout.
+        timeout: std::time::Duration,
+    },
+
     /// The requested image was not found.
     #[error("image not found: {0}")]
     ImageNotFound(String),
@@ -440,6 +462,8 @@ pub enum Operation {
     SandboxModify,
     /// `Sandbox::fs`.
     SandboxFs,
+    /// `Sandbox::connect_guest_tcp`.
+    SandboxConnectGuestTcp,
     /// The free function `all_sandbox_metrics`.
     AllSandboxMetrics,
     /// Dialing a sandbox's agent (exec, attach, and guest-fs transport).
@@ -598,6 +622,7 @@ impl Operation {
             Operation::SandboxMetricsStream => "Sandbox::metrics_stream",
             Operation::SandboxModify => "Sandbox::modify",
             Operation::SandboxFs => "Sandbox::fs",
+            Operation::SandboxConnectGuestTcp => "Sandbox::connect_guest_tcp",
             Operation::AllSandboxMetrics => "all_sandbox_metrics",
             Operation::AgentConnect => "agent connections",
             Operation::SandboxHandleConfig => "SandboxHandle::config",

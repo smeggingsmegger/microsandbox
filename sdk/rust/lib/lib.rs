@@ -85,19 +85,20 @@ pub use sandbox::{
     SecretPatchBuilder, SecretPlannedChange, SecretSource, all_sandbox_metrics,
     all_sandbox_metrics_local, all_sandbox_metrics_reports_local, sandbox_metrics_report_local,
 };
+pub use sandbox::{
+    DEFAULT_GUEST_TCP_CONNECT_TIMEOUT, ExecOutput, ExternalMountRestorePolicy,
+    ExternalMountWarning, GuestTcpStream, MAX_HOSTNAME_BYTES, MAX_SANDBOX_NAME_BYTES,
+    NetworkSpecPatch, Sandbox, SandboxConfig, SandboxConfigPatch, SandboxListBuilder,
+    SandboxMetrics, SandboxPage, SandboxPingResult, SandboxPolicyPatch, SandboxResourcesPatch,
+    SandboxRuntimeOptionsPatch, SandboxSpecPatch, SandboxTouchResult, VsockSpecPatch,
+    validate_sandbox_name,
+};
 #[cfg(feature = "net")]
 pub use sandbox::{
     DnsConfigPatch, HostPattern, InterfaceOverridesPatch, Nameserver, NetworkAction, NetworkPolicy,
     NetworkProfile, NetworkRateLimiterConfigPatch, NetworkRule, OutboundProxy, PublishedPort,
     SecretSubstitution, SecretViolationAction, SecretsConfigPatch, Socks5Credentials,
     TlsConfigPatch,
-};
-pub use sandbox::{
-    ExecOutput, ExternalMountRestorePolicy, ExternalMountWarning, MAX_HOSTNAME_BYTES,
-    MAX_SANDBOX_NAME_BYTES, NetworkSpecPatch, Sandbox, SandboxConfig, SandboxConfigPatch,
-    SandboxListBuilder, SandboxMetrics, SandboxPage, SandboxPingResult, SandboxPolicyPatch,
-    SandboxResourcesPatch, SandboxRuntimeOptionsPatch, SandboxSpecPatch, SandboxTouchResult,
-    VsockSpecPatch, validate_sandbox_name,
 };
 pub use snapshot::{
     CheckpointSnapshotState, FileSnapshotState, HeadUpdate, HeadUpdateReason, LoadOpts, SaveOpts,

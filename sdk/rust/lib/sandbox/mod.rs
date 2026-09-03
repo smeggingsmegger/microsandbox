@@ -44,6 +44,7 @@ mod restore_builder;
 pub(crate) mod restore_resources;
 #[cfg(feature = "ssh")]
 pub mod ssh;
+mod tcp;
 // Windows-only in shipping builds, but kept compiled under `test` so the
 // platform-independent encoding logic is covered on every host.
 mod status;
@@ -227,6 +228,7 @@ pub use ssh::{
     SshServerOptionsBuilder, SshStdioStream,
 };
 pub use status::SandboxStatus;
+pub use tcp::{DEFAULT_GUEST_TCP_CONNECT_TIMEOUT, GuestTcpStream};
 pub use types::{
     DeploymentProfile, DiskImageFormat, FlatClone, HostPermissions, ImageBuilder, ImageSource,
     IntoImage, MountBuilder, MountOptions, NamedVolumeMode, OciRootfsSource, OwnedVolumeBuilder,
